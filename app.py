@@ -1,8 +1,6 @@
 import datetime
 from datetime import timedelta
 import pandas as pd
-import numpy as np
-
 from fbprophet import Prophet
 from sklearn import metrics
 from fbprophet.plot import add_changepoints_to_plot
@@ -10,9 +8,7 @@ from fbprophet.plot import plot_cross_validation_metric
 from fbprophet.diagnostics import performance_metrics
 from fbprophet.diagnostics import cross_validation
 from fbprophet.plot import plot_plotly, plot_components_plotly
-
 from math import sqrt
-
 import streamlit as st
 from plotly import graph_objs as go
 
