@@ -1,5 +1,5 @@
 streamlit
 numpy
 pystan
-fbprophet
+fbprophet==0.7.0
 plotly
