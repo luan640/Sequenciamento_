@@ -1,2 +1,0 @@
-# Sequenciamento_
-Sequenciamento montagem
