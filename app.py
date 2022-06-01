@@ -18,7 +18,7 @@ from plotly import graph_objs as go
 
 st.title('Previsão de vendas por modelo de carreta')
 
-arquivo = r'Downloads/BASE VENDAS ATUALIZADA.xlsx'
+arquivo = 'BASE VENDAS ATUALIZADA.xlsx'
 
 df = pd.read_excel(arquivo, parse_dates=['ds'])
 df['MOD08'].unique()#ordenando valores por data
