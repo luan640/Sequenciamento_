@@ -1,2 +1,4 @@
-pip install pystan==2.18.0.0
-pip install fbprophet
+fbprophet==0.6
+numpy==1.18.4
+streamlit==0.60.0
+pandas==1.0.3
