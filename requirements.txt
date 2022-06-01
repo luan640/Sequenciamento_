@@ -1,2 +1,2 @@
-
-fbprophet==0.7.1
+pip install pystan==2.18.0.0
+pip install fbprophet
