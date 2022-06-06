@@ -40,9 +40,6 @@ df1['dayofyear'] = df1['ds'].dt.dayofyear
 df1['dayofmonth'] = df1['ds'].dt.day
 df1['weekofyear'] = df1['ds'].dt.weekofyear
 
-fig1,(ax1,ax2,ax3)= plt.subplots(ncols = 3)
-fig1.set_size_inches(40,5)
-
 monthAggregated1 = pd.DataFrame(df1.groupby("month")["y"].sum()).reset_index().sort_values('y')
 monthAggregated2 = pd.DataFrame(df1.groupby("dayofweek")["y"].sum()).reset_index().sort_values('y')
 monthAggregated3 = pd.DataFrame(df1.groupby("year")["y"].sum()).reset_index().sort_values('y')
