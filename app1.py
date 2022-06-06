@@ -1,7 +1,5 @@
 
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import figure
 from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
 import streamlit as st
