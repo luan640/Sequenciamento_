@@ -1,4 +1,3 @@
-
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
@@ -10,7 +9,7 @@ from sklearn.metrics import mean_squared_error
 
 st.title('Previsão de vendas por modelo de carreta')
 
-arquivo = 'BASE VENDAS ATUALIZADA.xlsx'
+arquivo = r'C:\Users\Luan\Downloads\BASE VENDAS ATUALIZADA.xlsx'
 df = pd.read_excel(arquivo, parse_dates=['ds'])
 
 #selecionando modelo de carreta
@@ -95,11 +94,15 @@ X = np.array([Month, Year]).T
 
 Y_month = [6,7,8,9,10,11,12]
 Y_year = [2022,2022,2022,2022,2022,2022,2022]
-#Y_index = [65,66,67,68,69,70,71]
+
+x = pd.date_range(start = '2022-06-01', end = '2023-01-01', freq = 'm')
+x = x.to_pydatetime()
 
 Y = np.array([Y_month, Y_year,Y_index]).T
+
 data_df = pd.DataFrame(Y)
 data_df = data_df.set_index(2)
+
 Y = np.array([Y_month, Y_year]).T
 
 # fit the model
@@ -115,17 +118,17 @@ preds1 = my_rf.predict(Y)
 st.subheader("Previsão com o modelo 1")
 
 fig4 = go.Figure()
-fig4.add_trace(go.Scatter(x=df1.index,
+fig4.add_trace(go.Scatter(x=df1.ds,
                          y=df1.y.values,
                          name='Valores reais',
                          line_color='black', mode='lines+markers'))
 
-fig4.add_trace(go.Scatter(x=df1.index,
+fig4.add_trace(go.Scatter(x=df1.ds,
                          y=preds,
                          name='Valores previsto',
                          line_color='green', mode='lines+markers'))
 
-fig4.add_trace(go.Scatter(x=data_df.index,
+fig4.add_trace(go.Scatter(x=x,
                          y=preds1,
                          name='Valores previsto',
                          line_color='red', mode='lines+markers'))
@@ -150,17 +153,17 @@ preds3 = my_xgb.predict(Y)
 st.subheader("Previsão com o modelo 2")
 
 fig5 = go.Figure()
-fig5.add_trace(go.Scatter(x=df1.index,
+fig5.add_trace(go.Scatter(x=df1.ds,
                          y=df1.y.values,
                          name='Valores reais',
                          line_color='black', mode='lines+markers'))
 
-fig5.add_trace(go.Scatter(x=df1.index,
+fig5.add_trace(go.Scatter(x=df1.ds,
                          y=preds2,
                          name='Valores previsto',
                         line_color='green', mode='lines+markers'))
 
-fig5.add_trace(go.Scatter(x=data_df.index,
+fig5.add_trace(go.Scatter(x=x,
                          y=preds3,
                          name='Valores previsto',
                          line_color='red', mode='lines+markers'))
