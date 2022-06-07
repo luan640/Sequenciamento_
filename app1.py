@@ -148,7 +148,7 @@ my_xgb = xgb.XGBRegressor(max_depth=3,
                           verbosity=1,
                           silent=None,
                           objective='reg:linear',
-                          booster='gbtree',)
+                          booster='gbtree')
 my_xgb.fit(X, df1.y.values)
  
 # predict on the same period
