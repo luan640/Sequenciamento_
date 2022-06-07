@@ -1,7 +1,7 @@
 
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
-#import xgboost as xgb
+import xgboost as xgb
 import streamlit as st
 import numpy as np
 import plotly.express as px
@@ -139,35 +139,35 @@ st.subheader(arma_rmse)
 preds1
 
 # fit the model
-#my_xgb = xgb.XGBRegressor()
-#my_xgb.fit(X, df1.y.values)
+my_xgb = xgb.XGBRegressor()
+my_xgb.fit(X, df1.y.values)
  
 # predict on the same period
-#preds2 = my_xgb.predict(X)
-#preds3 = my_xgb.predict(Y)
+preds2 = my_xgb.predict(X)
+preds3 = my_xgb.predict(Y)
 
 # plot what has been learned
-#st.subheader("Previsão com o modelo 2")
+st.subheader("Previsão com o modelo 2")
 
-#fig5 = go.Figure()
-#fig5.add_trace(go.Scatter(x=df1.index,
-#                         y=df1.y.values,
-#                         name='Valores reais',
-#                         line_color='black', mode='lines+markers'))
-#
-#fig5.add_trace(go.Scatter(x=df1.index,
-#                         y=preds2,
-#                         name='Valores previsto',
-#                        line_color='green', mode='lines+markers'))
-#
-#fig5.add_trace(go.Scatter(x=data_df.index,
-#                         y=preds3,
-#                         name='Valores previsto',
-#                         line_color='red', mode='lines+markers'))
-#
-#st.plotly_chart(fig5)
-#arma_rmse = np.sqrt(mean_squared_error(df1['y'],preds2))
-#st.subheader('Erro: ') 
-#st.subheader(arma_rmse) 
+fig5 = go.Figure()
+fig5.add_trace(go.Scatter(x=df1.index,
+                         y=df1.y.values,
+                         name='Valores reais',
+                         line_color='black', mode='lines+markers'))
 
-#preds3
+fig5.add_trace(go.Scatter(x=df1.index,
+                         y=preds2,
+                         name='Valores previsto',
+                        line_color='green', mode='lines+markers'))
+
+fig5.add_trace(go.Scatter(x=data_df.index,
+                         y=preds3,
+                         name='Valores previsto',
+                         line_color='red', mode='lines+markers'))
+
+st.plotly_chart(fig5)
+arma_rmse = np.sqrt(mean_squared_error(df1['y'],preds2))
+st.subheader('Erro: ') 
+st.subheader(arma_rmse) 
+
+preds3
