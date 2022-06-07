@@ -8,7 +8,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from sklearn.metrics import mean_squared_error
 
-
 st.title('Previsão de vendas por modelo de carreta')
 
 arquivo = 'BASE VENDAS ATUALIZADA.xlsx'
@@ -78,14 +77,12 @@ if tratamento_ou_nao == 'Sim':
     
     tamanho_ = df1.shape[0]
     Y_index = np.arange(tamanho_,tamanho_ + 7) 
-    st.subheader(tamanho_)
 
 else:
     
     df1 = df1.reset_index(drop=True)
     tamanho_ = df1.shape[0]
     Y_index = np.arange(tamanho_, tamanho_ + 7) 
-    st.subheader(tamanho_)
 
 fig6 = px.box(df1, y='y', title='BoxPlot')
 st.plotly_chart(fig6)
