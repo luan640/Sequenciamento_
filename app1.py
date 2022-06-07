@@ -6,14 +6,12 @@ import streamlit as st
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-
+from sklearn.metrics import mean_squared_error
 
 
 st.title('Previsão de vendas por modelo de carreta')
 
-
-
-arquivo = 'BASE VENDAS ATUALIZADA.xlsx'
+arquivo = r'C:\Users\Luan\Downloads\BASE VENDAS ATUALIZADA.xlsx'
 df = pd.read_excel(arquivo, parse_dates=['ds'])
 
 #selecionando modelo de carreta
@@ -23,6 +21,7 @@ modelo_carreta = str(modelo_carreta)[1:-1]
 
 with st.sidebar:
     modelo_carreta = st.selectbox('Escolha um modelo de carreta', ('CBHM','CBH','F','FTC','FA','P.A','ROBUSTA'))
+    tratamento_ou_nao = st.selectbox('Para tratamento de outliers', ('Sim','Não'))
     
 selecao = (df.MOD08 == modelo_carreta)
 df1 = df[selecao]
@@ -44,7 +43,7 @@ monthAggregated1 = pd.DataFrame(df1.groupby("month")["y"].sum()).reset_index().s
 monthAggregated2 = pd.DataFrame(df1.groupby("dayofweek")["y"].sum()).reset_index().sort_values('y')
 monthAggregated3 = pd.DataFrame(df1.groupby("year")["y"].sum()).reset_index().sort_values('y')
 
-st.subheader("Informações sobre o modelo de carreta")
+st.subheader("Dados históricos de vendas")
 
 fig1 = px.bar(monthAggregated1, x='month', y='y',title='Vendas por mês: ' + modelo_carreta)
 fig2 = px.bar(monthAggregated2, x='dayofweek', y='y',title='Vendas por dia da semana: ' + modelo_carreta)
@@ -54,21 +53,43 @@ st.plotly_chart(fig1)
 st.plotly_chart(fig2)
 st.plotly_chart(fig3)
 
-
 df1 = df1.set_index('ds')
 df1 = df1.resample('M').sum()
 df1 = df1.reset_index()
 
-valor = df1['y']
+#tratamento de informações
 
-Q1 = valor.quantile(.25)
-Q3 = valor.quantile(.75)
-IIQ = Q3 - Q1
-limite_inferior = Q1 - 1.5 * IIQ
-limite_superior = Q3 + 1.5 * IIQ
+Y_index = []
 
-selecao = (valor >= limite_inferior) & (valor <= limite_superior)
-df1 = df1[selecao]
+if tratamento_ou_nao == 'Sim':
+
+    valor = df1['y']
+    
+    Q1 = valor.quantile(.25)
+    Q3 = valor.quantile(.75)
+    IIQ = Q3 - Q1
+    limite_inferior = Q1 - 1.5 * IIQ
+    limite_superior = Q3 + 1.5 * IIQ
+    
+    selecao = (valor >= limite_inferior) & (valor <= limite_superior)
+    df1 = df1[selecao]
+    
+    df1 = df1.reset_index(drop=True)
+    
+    tamanho_ = df1.shape[0]
+    Y_index = np.arange(tamanho_,tamanho_ + 7) 
+    st.subheader(tamanho_)
+
+else:
+    
+    df1 = df1.reset_index(drop=True)
+    tamanho_ = df1.shape[0]
+    Y_index = np.arange(tamanho_, tamanho_ + 7) 
+    st.subheader(tamanho_)
+
+fig6 = px.box(df1, y='y', title='BoxPlot')
+st.plotly_chart(fig6)
+# final do tratamento
 
 Month = [i.month for i in df1['ds']]
 Year = [i.year for i in df1['ds']]
@@ -77,7 +98,7 @@ X = np.array([Month, Year]).T
 
 Y_month = [6,7,8,9,10,11,12]
 Y_year = [2022,2022,2022,2022,2022,2022,2022]
-Y_index = [65,66,67,68,69,70,71]
+#Y_index = [65,66,67,68,69,70,71]
 
 Y = np.array([Y_month, Y_year,Y_index]).T
 data_df = pd.DataFrame(Y)
@@ -97,6 +118,8 @@ preds1 = my_rf.predict(Y)
 
 st.subheader("Previsão com o modelo 1")
 
+len(df1)
+
 fig4 = go.Figure()
 fig4.add_trace(go.Scatter(x=df1.index,
                          y=df1.y.values,
@@ -115,15 +138,25 @@ fig4.add_trace(go.Scatter(x=data_df.index,
 
 st.plotly_chart(fig4)
 
+arma_rmse = np.sqrt(mean_squared_error(df1['y'],preds))
+st.subheader('Erro: ') 
+st.subheader(arma_rmse) 
+ 
 preds1
 
 # fit the model
-my_xgb = xgb.XGBRegressor()
+my_xgb = xgb.XGBRegressor(max_depth=3,
+                          learning_rate=0.1,
+                          n_estimators=100,
+                          verbosity=1,
+                          silent=None,
+                          objective='reg:linear',
+                          booster='gbtree',)
 my_xgb.fit(X, df1.y.values)
  
 # predict on the same period
-preds = my_xgb.predict(X)
-preds1 = my_xgb.predict(Y)
+preds2 = my_xgb.predict(X)
+preds3 = my_xgb.predict(Y)
 
 # plot what has been learned
 st.subheader("Previsão com o modelo 2")
@@ -132,17 +165,21 @@ fig5 = go.Figure()
 fig5.add_trace(go.Scatter(x=df1.index,
                          y=df1.y.values,
                          name='Valores reais',
-                         line_color='blue', mode='lines+markers'))
+                         line_color='black', mode='lines+markers'))
 
 fig5.add_trace(go.Scatter(x=df1.index,
-                         y=preds,
+                         y=preds2,
                          name='Valores previsto',
                          line_color='green', mode='lines+markers'))
 
 fig5.add_trace(go.Scatter(x=data_df.index,
-                         y=preds1,
+                         y=preds3,
                          name='Valores previsto',
                          line_color='red', mode='lines+markers'))
 
 st.plotly_chart(fig5)
-preds1
+arma_rmse = np.sqrt(mean_squared_error(df1['y'],preds2))
+st.subheader('Erro: ') 
+st.subheader(arma_rmse) 
+
+preds3
