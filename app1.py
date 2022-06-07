@@ -105,7 +105,6 @@ data_df = pd.DataFrame(Y)
 data_df = data_df.set_index(2)
 Y = np.array([Y_month, Y_year]).T
 
- 
 # fit the model
 my_rf = RandomForestRegressor()
 my_rf.fit(X, df1.y.values)
@@ -117,8 +116,6 @@ preds1 = my_rf.predict(Y)
 # plot what has been learned
 
 st.subheader("Previsão com o modelo 1")
-
-len(df1)
 
 fig4 = go.Figure()
 fig4.add_trace(go.Scatter(x=df1.index,
