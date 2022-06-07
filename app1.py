@@ -143,12 +143,7 @@ preds1
 
 # fit the model
 my_xgb = xgb.XGBRegressor(max_depth=3,
-                          learning_rate=0.1,
-                          n_estimators=100,
-                          verbosity=1,
-                          silent=None,
-                          objective='reg:linear',
-                          booster='gbtree')
+                          objective='reg:linear')
 my_xgb.fit(X, df1.y.values)
  
 # predict on the same period
