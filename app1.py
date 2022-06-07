@@ -142,8 +142,7 @@ st.subheader(arma_rmse)
 preds1
 
 # fit the model
-my_xgb = xgb.XGBRegressor(max_depth=3,
-                          objective='reg:linear')
+my_xgb = xgb.XGBRegressor()
 my_xgb.fit(X, df1.y.values)
  
 # predict on the same period
