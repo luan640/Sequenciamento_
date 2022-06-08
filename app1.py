@@ -43,9 +43,9 @@ monthAggregated3 = pd.DataFrame(df1.groupby("year")["y"].sum()).reset_index().so
 
 st.subheader("Dados históricos de vendas")
 
-fig1 = px.bar(monthAggregated1, x='month', y='y',title='Vendas por mês: ' + modelo_carreta)
-fig2 = px.bar(monthAggregated2, x='dayofweek', y='y',title='Vendas por dia da semana: ' + modelo_carreta)
-fig3 = px.bar(monthAggregated3, x='year', y='y',title='Vendas por ano: ' + modelo_carreta )
+fig1 = px.bar(monthAggregated1, x='month', y='y',title='Mes que mais vendeu: ' + modelo_carreta)
+fig2 = px.bar(monthAggregated2, x='dayofweek', y='y',title='Dia da semana que mais vendeu: ' + modelo_carreta)
+fig3 = px.bar(monthAggregated3, x='year', y='y',title='Ano que mais vendeu: ' + modelo_carreta )
 
 st.plotly_chart(fig1)
 st.plotly_chart(fig2)
