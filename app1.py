@@ -6,6 +6,8 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from sklearn.metrics import mean_squared_error
+from fbprophet import Prophet
+
 
 st.title('Previsão de vendas por modelo de carreta')
 
@@ -174,3 +176,17 @@ st.subheader('Erro: ')
 st.subheader(arma_rmse) 
 
 preds3
+
+x = pd.DataFrame(x)
+x = x.rename(columns={0: 'ds'})
+
+model = Prophet()
+# fit the model
+model.fit(df1)
+
+forecast = model.predict(x)
+# summarize the forecast
+print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head())
+# plot forecast
+model.plot(forecast)
+pyplot.show()
