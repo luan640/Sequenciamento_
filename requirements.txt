@@ -2,4 +2,5 @@ sklearn
 xgboost==0.90
 plotly==5.6.0
 openpyxl==3.0.9
-fbprophet==0.7.1
+pystan==2.19.1.1
+prophet==1.0
