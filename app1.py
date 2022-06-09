@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jun  8 16:44:36 2022
-
-@author: Luan
-"""
-
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
@@ -13,11 +6,14 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
+
 
 st.title('Previsão de vendas por modelo de carreta')
 
-arquivo = 'BASE VENDAS ATUALIZADA.xlsx'
-df = pd.read_excel(arquivo, parse_dates=['ds'])
+arquivo = r'C:\Users\pcp\Downloads\BASE ATUALIZADA 0906 (2).xlsx'
+#arquivo = 'BASE VENDAS ATUALIZADA.xlsx'
+df = pd.read_excel(arquivo)#, parse_dates=['ds'])
 
 #selecionando modelo de carreta
 
@@ -30,6 +26,7 @@ with st.sidebar:
     
 selecao = (df.MOD08 == modelo_carreta)
 df1 = df[selecao]
+df1['ds'] =  pd.to_datetime(df1['ds'], infer_datetime_format=True)
 
 #deixando apenas colunas necessárias
 
@@ -113,7 +110,7 @@ data_df = data_df.set_index(2)
 Y = np.array([Y_month, Y_year]).T
 
 # fit the model
-my_rf = RandomForestRegressor()
+my_rf = RandomForestRegressor(n_estimators = 400)
 my_rf.fit(X, df1.y.values)
  
 # predict on the same period
@@ -149,7 +146,12 @@ st.subheader(arma_rmse)
 preds1
 
 # fit the model
-my_xgb = xgb.XGBRegressor()
+my_xgb = xgb.XGBRegressor(objective= 'reg:squarederror',
+                          learning_rate = 0.1,
+                          n_estimators =100, 
+                          max_depth = 3, 
+                          seed = 0)
+
 my_xgb.fit(X, df1.y.values)
  
 # predict on the same period
