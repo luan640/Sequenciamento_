@@ -12,13 +12,13 @@ st.title('Previsão de vendas por modelo de carreta')
 
 arquivo = 'BASE VENDAS ATUALIZADA_quant.xlsx'
 
+df = pd.read_excel(arquivo) #, parse_dates=['ds'])
+
 with st.sidebar:
     modelo_carreta = st.selectbox('Escolha um modelo de carreta', ('CBHM','CBH','F','FTC','FA','P.A','ROBUSTA','GERAL'))
     tratamento_ou_nao = st.selectbox('Para tratamento de outliers', ('Sim','Não'))
     monet_quant = st.selectbox('Monetário ou unidades vendidas?', ('Monetário','Unidade'))   
-
-df = pd.read_excel(arquivo) #, parse_dates=['ds'])
-
+    
 #selecionando modelo de carreta
 
 modelo_carreta = df['MOD08'].unique().tolist()
