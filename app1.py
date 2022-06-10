@@ -18,7 +18,7 @@ with st.sidebar:
 
 if monet_quant == 'Unidade':
     arquivo = 'BASE VENDAS ATUALIZADA_quant.xlsx'    
-Else: 
+else: 
     arquivo = 'BASE VENDAS ATUALIZADA_monet.xlsx'    
 
 df = pd.read_excel(arquivo) #, parse_dates=['ds'])
