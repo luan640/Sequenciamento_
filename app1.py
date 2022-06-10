@@ -13,9 +13,9 @@ st.title('Previsão de vendas por modelo de carreta')
 monet_quant = st.selectbox('Monetário ou unidades vendidas?', ('Monetário','Unidade'))   
 
 if monet_quant == 'Unidade':
-    arquivo = r'C:\Users\pcp\OneDrive\Área de Trabalho\Arquivos vendsa\BASE VENDAS ATUALIZADA_quant.xlsx'
+    arquivo = 'BASE VENDAS ATUALIZADA_quant.xlsx'
 else:
-    arquivo = r'C:\Users\pcp\OneDrive\Área de Trabalho\Arquivos vendsa\BASE VENDAS ATUALIZADA_monet.xlsx'
+    arquivo = 'BASE VENDAS ATUALIZADA_monet.xlsx'
    
 df = pd.read_excel(arquivo) #, parse_dates=['ds'])
     
