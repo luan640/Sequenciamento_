@@ -21,7 +21,7 @@ modelo_carreta = df['MOD08'].unique().tolist()
 modelo_carreta = str(modelo_carreta)[1:-1]
 
 with st.sidebar:
-    modelo_carreta = st.selectbox('Escolha um modelo de carreta', ('CBHM','CBH','F','FTC','FA','P.A','ROBUSTA'))
+    modelo_carreta = st.selectbox('Escolha um modelo de carreta', ('CBHM','CBH','F','FTC','FA','P.A','ROBUSTA','GERAL'))
     tratamento_ou_nao = st.selectbox('Para tratamento de outliers', ('Sim','Não'))
     
 selecao = (df.MOD08 == modelo_carreta)
