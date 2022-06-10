@@ -8,18 +8,12 @@ import plotly.graph_objects as go
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 
-
 st.title('Previsão de vendas por modelo de carreta')
 
 with st.sidebar:
     modelo_carreta = st.selectbox('Escolha um modelo de carreta', ('CBHM','CBH','F','FTC','FA','P.A','ROBUSTA','GERAL'))
     tratamento_ou_nao = st.selectbox('Para tratamento de outliers', ('Sim','Não'))
-    monet_quant = st.selectbox('Monetário ou unidades vendidas?', ('Monetário','Unidade'))
-
-if monet_quant == 'Unidade':
-    arquivo = 'BASE VENDAS ATUALIZADA_quant.xlsx'    
-else: 
-    arquivo = 'BASE VENDAS ATUALIZADA_monet.xlsx'    
+    monet_quant = st.selectbox('Monetário ou unidades vendidas?', ('Monetário','Unidade'))   
 
 df = pd.read_excel(arquivo) #, parse_dates=['ds'])
 
