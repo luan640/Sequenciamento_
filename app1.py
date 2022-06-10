@@ -12,7 +12,7 @@ from sklearn.metrics import mean_absolute_error
 st.title('Previsão de vendas por modelo de carreta')
 
 #arquivo = r'C:\Users\pcp\Downloads\BASE ATUALIZADA 0906 (2).xlsx'
-arquivo = 'BASE VENDAS ATUALIZADA1.xlsx'
+arquivo = 'BASE VENDAS ATUALIZADA12.xlsx'
 df = pd.read_excel(arquivo) #, parse_dates=['ds'])
 
 #selecionando modelo de carreta
@@ -99,7 +99,7 @@ X = np.array([Month, Year]).T
 Y_month = [6,7,8,9,10,11,12]
 Y_year = [2022,2022,2022,2022,2022,2022,2022]
 
-x = pd.date_range(start = '2022-06-01', end = '2023-01-01', freq = 'm')
+x = pd.date_range(start = '2022-05-01', end = '2023-01-01', freq = 'm')
 x = x.to_pydatetime()
 
 Y = np.array([Y_month, Y_year,Y_index]).T
