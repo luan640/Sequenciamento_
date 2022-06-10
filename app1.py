@@ -26,7 +26,7 @@ with st.sidebar:
     
 selecao = (df.MOD08 == modelo_carreta)
 df1 = df[selecao]
-df1['ds'] =  pd.to_datetime(df1['ds'], infer_datetime_format=True)
+df1['ds'] = pd.to_datetime(df1['ds'],format='%d/%m/%Y')
 
 #deixando apenas colunas necessárias
 
