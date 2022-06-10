@@ -10,6 +10,8 @@ from sklearn.metrics import mean_absolute_error
 
 st.title('Previsão de vendas por modelo de carreta')
 
+arquivo = 'BASE VENDAS ATUALIZADA_quant.xlsx'
+
 with st.sidebar:
     modelo_carreta = st.selectbox('Escolha um modelo de carreta', ('CBHM','CBH','F','FTC','FA','P.A','ROBUSTA','GERAL'))
     tratamento_ou_nao = st.selectbox('Para tratamento de outliers', ('Sim','Não'))
