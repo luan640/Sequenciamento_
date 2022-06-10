@@ -13,9 +13,9 @@ st.title('Previsão de vendas por modelo de carreta')
 monet_quant = st.selectbox('Monetário ou unidades vendidas?', ('Monetário','Unidade'))   
 
 if monet_quant == 'Unidade':
-    arquivo = 'BASE VENDAS ATUALIZADA_quant.xlsx'
+    arquivo = r'C:\Users\pcp\OneDrive\Área de Trabalho\Arquivos vendsa\BASE VENDAS ATUALIZADA_quant.xlsx'
 else:
-    arquivo = 'BASE VENDAS ATUALIZADA_monet.xlsx'
+    arquivo = r'C:\Users\pcp\OneDrive\Área de Trabalho\Arquivos vendsa\BASE VENDAS ATUALIZADA_monet.xlsx'
    
 df = pd.read_excel(arquivo) #, parse_dates=['ds'])
     
@@ -108,6 +108,9 @@ x = x.to_pydatetime()
 
 Y = np.array([Y_month, Y_year,Y_index]).T
 
+meses = ['Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
+meses = pd.DataFrame(meses, columns=['Meses'])
+
 data_df = pd.DataFrame(Y)
 data_df = data_df.set_index(2)
 
@@ -147,6 +150,9 @@ arma_rmse = np.sqrt(mean_squared_error(df1['y'],preds))
 st.subheader('Erro: ') 
 st.subheader(arma_rmse) 
  
+preds1 = pd.DataFrame(preds1, columns=['Valor'])
+preds1['Meses'] = meses['Meses'] 
+preds1 = preds1[['Meses','Valor']]
 preds1
 
 # fit the model
@@ -186,4 +192,7 @@ arma_rmse = np.sqrt(mean_squared_error(df1['y'],preds2))
 st.subheader('Erro: ') 
 st.subheader(arma_rmse) 
 
+preds3 = pd.DataFrame(preds3, columns=['Valor'])
+preds3['Meses'] = meses['Meses'] 
+preds3 = preds1[['Meses','Valor']]
 preds3
