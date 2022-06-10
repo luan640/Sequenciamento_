@@ -12,7 +12,7 @@ from sklearn.metrics import mean_absolute_error
 st.title('Previsão de vendas por modelo de carreta')
 
 #arquivo = r'C:\Users\pcp\Downloads\BASE ATUALIZADA 0906 (2).xlsx'
-arquivo = 'BASE VENDAS ATUALIZADA1.xlsx'
+arquivo = 'BASE VENDAS ATUALIZADA_quant.xlsx'
 df = pd.read_excel(arquivo) #, parse_dates=['ds'])
 
 #selecionando modelo de carreta
