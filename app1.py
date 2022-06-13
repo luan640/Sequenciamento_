@@ -100,10 +100,10 @@ Year = [i.year for i in df1['ds']]
 
 X = np.array([Month, Year]).T
 
-Y_month = [1,2,3,4,5,6,7,8,9,10,11,12]
-Y_year = [2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022]
+Y_month = [6,7,8,9,10,11,12]
+Y_year = [2022,2022,2022,2022,2022,2022,2022]
 
-x = pd.date_range(start = '2022-01-01', end = '2023-01-01', freq = 'm')
+x = pd.date_range(start = '2022-06-01', end = '2023-01-01', freq = 'm')
 x = x.to_pydatetime()
 
 Y = np.array([Y_month, Y_year,Y_index]).T
